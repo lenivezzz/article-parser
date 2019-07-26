@@ -1,0 +1,8 @@
+{
+    "name": "lenivezzz/php_part",
+    "description": "PHP part of task",
+    "type": "project",
+    "minimum-stability": "stable",
+    "require-dev": {},
+    "require": {}
+}
