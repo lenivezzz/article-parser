@@ -5,15 +5,20 @@
     "minimum-stability": "stable",
     "require-dev": {
         "roave/security-advisories": "dev-master",
-        "phpunit/phpunit": "^8.2"
+        "phpunit/phpunit": "^8.2",
+        "fzaninotto/faker": "^1.8"
     },
     "require": {
         "symfony/dom-crawler": "^4.3",
-        "symfony/css-selector": "^4.3"
+        "symfony/css-selector": "^4.3",
+        "illuminate/database": "^5.8",
+        "symfony/dotenv": "^4.3"
     },
     "autoload": {
         "psr-4": {
-            "php_part\\": "src/"
+            "php_part\\": "src/",
+            "db\\": "db/",
+            "tests\\": "tests/"
         }
     }
 }
