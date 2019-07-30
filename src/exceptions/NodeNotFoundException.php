@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace php_part\exceptions;
 
-use RuntimeException;
 use Throwable;
 
-class NodeNotFoundException extends RuntimeException
+class NodeNotFoundException extends UnexpectedContentException
 {
     /**
      * @param string $selector
