@@ -4,7 +4,16 @@
     "type": "project",
     "minimum-stability": "stable",
     "require-dev": {
+        "roave/security-advisories": "dev-master",
         "phpunit/phpunit": "^8.2"
     },
-    "require": {}
+    "require": {
+        "symfony/dom-crawler": "^4.3",
+        "symfony/css-selector": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "php_part\\": "src/"
+        }
+    }
 }
