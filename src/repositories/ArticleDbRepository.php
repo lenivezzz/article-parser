@@ -37,9 +37,9 @@ class ArticleDbRepository implements ArticleRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function findAll() : Collection
+    public function findAll(string $order = 'desc') : Collection
     {
-        return Article::query()->get();
+        return Article::query()->orderBy('id', $order)->get();
     }
 
     /**
