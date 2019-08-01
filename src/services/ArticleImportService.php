@@ -76,8 +76,8 @@ class ArticleImportService implements ArticleImportInterface
                 $parser->setContent($this->webResourceSourceProvider->provide($url));
 
                 $attributes = [
-                    'title' => $parser->parseTitle(),
-                    'announce' => mb_substr($this->clearHtmlSpaces($parser->parseText()), 0, 200),
+                    'title' => $this->removeHtmlSpaces($parser->parseTitle()),
+                    'announce' => mb_substr($this->removeHtmlSpaces($parser->parseText()), 0, 200),
                     'content' => $parser->parseText(),
                     'image_src' => $parser->parseImageSrc(),
                     'published_at' => $parser->parsePublishedDateTime()->format('Y-m-d H:i:s'),
@@ -122,7 +122,7 @@ class ArticleImportService implements ArticleImportInterface
      * @param string $html
      * @return string
      */
-    private function clearHtmlSpaces(string $html) : string
+    private function removeHtmlSpaces(string $html) : string
     {
         return str_replace("\t", '', trim(strip_tags($html)));
     }

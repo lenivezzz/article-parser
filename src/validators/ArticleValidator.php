@@ -66,6 +66,9 @@ class ArticleValidator implements ValidatorInterface
     {
         $violations = $this->validator->validate($title, [
             new NotBlank(),
+            new Length([
+                'max' => 128
+            ]),
         ]);
 
         $this->convertViolationsToMessages($violations);
