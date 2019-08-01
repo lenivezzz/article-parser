@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace php_part\repositories;
 
 use Illuminate\Database\Eloquent\Collection;
+use php_part\exceptions\RepositoryException;
 use php_part\models\Article;
 use Throwable;
 
@@ -12,7 +13,7 @@ class ArticleDbRepository implements ArticleRepositoryInterface
 
     /**
      * @inheritDoc
-     * @throws Throwable
+     * @throws RepositoryException
      */
     public function store(array $attributes) : int
     {
@@ -24,8 +25,11 @@ class ArticleDbRepository implements ArticleRepositoryInterface
             'published_at' => $attributes['published_at'],
             'hash' => $attributes['hash'],
         ]);
-
-        $article->saveOrFail();
+        try {
+            $article->saveOrFail();
+        } catch (Throwable $e) {
+            throw new RepositoryException($e->getMessage(), 0, $e);
+        }
         return $article->id;
     }
 

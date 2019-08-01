@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace tests\unit\repositories;
 
 use Faker\Factory;
-use Illuminate\Database\QueryException;
+use php_part\exceptions\RepositoryException;
 use php_part\models\Article;
 use php_part\repositories\ArticleDbRepository;
 use tests\unit\DbTestCase;
@@ -36,7 +36,7 @@ class ArticleDbRepositoryTest extends DbTestCase
             $article->hash,
         ]);
 
-        $this->expectException(QueryException::class);
+        $this->expectException(RepositoryException::class);
         $repository->store($attributes);
     }
 
