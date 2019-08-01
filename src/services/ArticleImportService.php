@@ -77,7 +77,7 @@ class ArticleImportService implements ArticleImportInterface
 
                 $attributes = [
                     'title' => $parser->parseTitle(),
-                    'announce' => mb_substr(trim(strip_tags($parser->parseText())), 0, 200),
+                    'announce' => mb_substr($this->clearHtmlSpaces($parser->parseText()), 0, 200),
                     'content' => $parser->parseText(),
                     'image_src' => $parser->parseImageSrc(),
                     'published_at' => $parser->parsePublishedDateTime()->format('Y-m-d H:i:s'),
@@ -116,5 +116,14 @@ class ArticleImportService implements ArticleImportInterface
         if ($this->validator->fails($attributes)) {
             throw InvalidArticleAttributesException::create($this->validator->getErrors());
         }
+    }
+
+    /**
+     * @param string $html
+     * @return string
+     */
+    private function clearHtmlSpaces(string $html) : string
+    {
+        return str_replace("\t", '', trim(strip_tags($html)));
     }
 }

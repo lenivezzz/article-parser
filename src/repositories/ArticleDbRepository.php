@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace php_part\repositories;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use php_part\exceptions\RepositoryException;
 use php_part\models\Article;
 use Throwable;
@@ -39,5 +40,20 @@ class ArticleDbRepository implements ArticleRepositoryInterface
     public function findAll() : Collection
     {
         return Article::query()->get();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findById(int $id) : Article
+    {
+        try {
+            /** @var Article $article */
+            $article = Article::query()->findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            throw new RepositoryException($e->getMessage(), 0, $e);
+        }
+
+        return $article;
     }
 }

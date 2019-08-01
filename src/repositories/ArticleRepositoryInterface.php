@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace php_part\repositories;
 
 use Illuminate\Database\Eloquent\Collection;
+use php_part\models\Article;
 
 interface ArticleRepositoryInterface
 {
@@ -17,4 +18,10 @@ interface ArticleRepositoryInterface
      * @return Collection
      */
     public function findAll() : Collection;
+
+    /**
+     * @param int $id
+     * @return Article
+     */
+    public function findById(int $id) : Article;
 }
