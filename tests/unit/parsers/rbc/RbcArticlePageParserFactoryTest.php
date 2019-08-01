@@ -19,6 +19,11 @@ class RbcArticlePageParserFactoryTest extends TestCase
             $factory->createByUrl('https://www.rbc.ru/someuri')
         );
 
+        $this->assertInstanceOf(
+            RbcArticlePageParser::class,
+            $factory->createByUrl('https://quote.rbc.ru/someuri')
+        );
+
         $this->expectException(ParserFactoryException::class);
         $this->assertInstanceOf(
             RbcArticlePageParser::class,
