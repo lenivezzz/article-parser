@@ -12,6 +12,7 @@ class RbcArticlePageParserFactory implements ArticlePageParserFactoryInterface
 {
     private const RBC_ARTICLE_HOST = 'www.rbc.ru';
     private const RBC_QUOTE_ARTICLE_HOST = 'quote.rbc.ru';
+    private const RBC_SPORT_ARTICLE_HOST = 'sport.rbc.ru';
 
     /**
      * @inheritDoc
@@ -22,6 +23,7 @@ class RbcArticlePageParserFactory implements ArticlePageParserFactoryInterface
         switch ($host) {
             case self::RBC_ARTICLE_HOST:
             case self::RBC_QUOTE_ARTICLE_HOST:
+            case self::RBC_SPORT_ARTICLE_HOST:
                 return new RbcArticlePageParser(new Crawler());
             default:
                 throw new ParserFactoryException(sprintf('Parser for articles %s is not implemented', $host));
