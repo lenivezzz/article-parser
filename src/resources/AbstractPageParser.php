@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace php_part\parsers;
+namespace php_part\resources;
 
 use InvalidArgumentException;
 use php_part\exceptions\NodeNotFoundException;

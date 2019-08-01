@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace php_part\parsers\rbc;
+namespace php_part\resources\rbc;
 
 use php_part\sourceproviders\WebResourceSourceProviderInterface;
 use php_part\UrlProviderInterface;

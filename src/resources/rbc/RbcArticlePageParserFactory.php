@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace php_part\parsers\rbc;
+namespace php_part\resources\rbc;
 
 use php_part\exceptions\ParserFactoryException;
-use php_part\parsers\ArticlePageParserFactoryInterface;
-use php_part\parsers\ArticlePageParserInterface;
+use php_part\resources\ArticlePageParserFactoryInterface;
+use php_part\resources\ArticlePageParserInterface;
+use php_part\resources\rbc\parsers\RbcArticlePageParser;
+use php_part\resources\rbc\parsers\RbcStyleArticlePageParser;
 use Symfony\Component\DomCrawler\Crawler;
 
 class RbcArticlePageParserFactory implements ArticlePageParserFactoryInterface

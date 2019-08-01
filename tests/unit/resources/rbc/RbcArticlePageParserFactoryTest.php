@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace tests\unit\parsers\rbc;
+namespace tests\unit\resources\rbc;
 
 use php_part\exceptions\ParserFactoryException;
-use php_part\parsers\rbc\RbcArticlePageParser;
-use php_part\parsers\rbc\RbcArticlePageParserFactory;
-use php_part\parsers\rbc\RbcStyleArticlePageParser;
+use php_part\resources\rbc\parsers\RbcArticlePageParser;
+use php_part\resources\rbc\RbcArticlePageParserFactory;
+use php_part\resources\rbc\parsers\RbcStyleArticlePageParser;
 use PHPUnit\Framework\TestCase;
 
 class RbcArticlePageParserFactoryTest extends TestCase

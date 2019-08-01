@@ -7,7 +7,7 @@ use php_part\exceptions\InvalidArticleAttributesException;
 use php_part\exceptions\NodeNotFoundException;
 use php_part\exceptions\ParserFactoryException;
 use php_part\exceptions\RepositoryException;
-use php_part\parsers\ArticlePageParserFactoryInterface;
+use php_part\resources\ArticlePageParserFactoryInterface;
 use php_part\repositories\ArticleRepositoryInterface;
 use php_part\sourceproviders\WebResourceSourceProviderInterface;
 use php_part\UrlProviderInterface;

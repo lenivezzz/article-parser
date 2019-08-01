@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace tests\unit\parsers\rbc;
+namespace tests\unit\resources\rbc\parsers;
 
 use InvalidArgumentException;
 use php_part\exceptions\NodeNotFoundException;
-use php_part\parsers\rbc\RbcMainPageParser;
-use php_part\parsers\rbc\RbcMainPageParserInterface;
+use php_part\resources\rbc\parsers\RbcMainPageParser;
+use php_part\resources\rbc\RbcMainPageParserInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 class RbcMainPageParserTest extends AbstractHtmlPageParserTest

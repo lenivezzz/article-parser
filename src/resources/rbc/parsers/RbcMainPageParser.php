@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace php_part\parsers\rbc;
+namespace php_part\resources\rbc\parsers;
 
-use php_part\parsers\AbstractPageParser;
+use php_part\resources\AbstractPageParser;
+use php_part\resources\rbc\RbcMainPageParserInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 class RbcMainPageParser extends AbstractPageParser implements RbcMainPageParserInterface
