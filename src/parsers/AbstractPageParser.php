@@ -37,6 +37,7 @@ abstract class AbstractPageParser
     /**
      * @param string $selector
      * @return Crawler
+     * @throws NodeNotFoundException
      */
     protected function findNode(string $selector) : Crawler
     {
