@@ -20,6 +20,15 @@ $articlesCollection = (new ArticleDbRepository())->findAll();
         .card {
             margin-bottom: 2rem;
         }
+
+        .card-body {
+            margin-bottom: 2rem;
+        }
+
+        .card-body-btn-details {
+            position: absolute;
+            bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -28,14 +37,14 @@ $articlesCollection = (new ArticleDbRepository())->findAll();
     <?php foreach ($articlesCollection->chunk(3) as $collection) { ?>
         <div class="row">
             <?php foreach ($collection->all() as $article) { ?>
-                <div class="col-md-4">
+                <div class="col-md-4 d-flex">
                     <div class="card">
                         <?php $imageSrc = $article->image_src ?: 'https://dummyimage.com/1180x730/cfcfcf/808080.png&text=No+image'; ?>
                         <img src="<?php echo $imageSrc; ?>" class="card-img-top" alt="" />
                         <div class="card-body">
                             <h5 class="card-title"><?php echo htmlspecialchars($article->title); ?></h5>
                             <p class="card-text"><?php echo htmlspecialchars($article->announce)?></p>
-                            <a href="<?php echo getenv('APP_URL') . '/view.php?id=' . $article->id; ?>" class="btn btn-link">Подробнее</a>
+                            <a href="<?php echo getenv('APP_URL') . '/view.php?id=' . $article->id; ?>" class="btn btn-link card-body-btn-details">Подробнее</a>
                         </div>
                     </div>
                 </div>
