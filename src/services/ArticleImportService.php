@@ -68,7 +68,7 @@ class ArticleImportService implements ArticleImportInterface
     public function import() : void
     {
         foreach ($this->loadUrlList() as $url) {
-            $this->logMessages[] = sprintf('%sProcessing %s', PHP_EOL, $url);
+            $this->addLogMessage(sprintf('%sProcessing %s', PHP_EOL, $url));
             try {
                 $this->importArticleFromUrl($url);
             } catch (
@@ -77,11 +77,11 @@ class ArticleImportService implements ArticleImportInterface
                 | RepositoryException
                 | InvalidArticleAttributesException $e
             ) {
-                $this->logMessages[] = sprintf('Failed to process url due reason:%s%s', PHP_EOL, $e->getMessage());
+                $this->addLogMessage(sprintf('Failed to process url due reason:%s%s', PHP_EOL, $e->getMessage()));
                 continue;
             }
 
-            $this->logMessages[] = 'Processed successfully';
+            $this->addLogMessage('Processed successfully');
         }
     }
 
@@ -91,6 +91,14 @@ class ArticleImportService implements ArticleImportInterface
     public function getLogMessages() : array
     {
         return $this->logMessages;
+    }
+
+    /**
+     * @param string $message
+     */
+    private function addLogMessage(string $message) : void
+    {
+        $this->logMessages[] = $message;
     }
 
     /**
