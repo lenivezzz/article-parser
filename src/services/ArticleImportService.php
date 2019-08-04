@@ -70,22 +70,8 @@ class ArticleImportService implements ArticleImportInterface
         $urlList = $this->urlProvider->provideUrlList();
         foreach ($urlList as $url) {
             $this->logMessages[] = sprintf('%sProcessing %s', PHP_EOL, $url);
-
             try {
-                $parser = $this->parserFactory->createByUrl($url);
-                $parser->setContent($this->webResourceSourceProvider->provide($url));
-
-                $attributes = [
-                    'title' => $this->removeHtmlSpaces($parser->parseTitle()),
-                    'announce' => mb_substr($this->removeHtmlSpaces($parser->parseText()), 0, 200),
-                    'content' => $parser->parseText(),
-                    'image_src' => $parser->parseImageSrc(),
-                    'published_at' => $parser->parsePublishedDateTime()->format('Y-m-d H:i:s'),
-                    'hash' => sha1($url),
-                ];
-                $this->ensureArticleAttributesIsValid($attributes);
-
-                $this->articleRepository->store($attributes);
+                $this->importArticleFromUrl($url);
             } catch (
                 ParserFactoryException
                 | NodeNotFoundException
@@ -109,13 +95,31 @@ class ArticleImportService implements ArticleImportInterface
     }
 
     /**
+     * @param string $url
+     */
+    private function importArticleFromUrl(string $url) : void
+    {
+        $parser = $this->parserFactory->createByUrl($url);
+        $parser->setContent($this->webResourceSourceProvider->provide($url));
+        $this->storeArticle([
+            'title' => $this->removeHtmlSpaces($parser->parseTitle()),
+            'announce' => mb_substr($this->removeHtmlSpaces($parser->parseText()), 0, 200),
+            'content' => $parser->parseText(),
+            'image_src' => $parser->parseImageSrc(),
+            'published_at' => $parser->parsePublishedDateTime()->format('Y-m-d H:i:s'),
+            'hash' => $this->generateUrlHash($url),
+        ]);
+    }
+
+    /**
      * @param array $attributes
      */
-    private function ensureArticleAttributesIsValid(array $attributes) : void
+    private function storeArticle(array $attributes) : void
     {
         if ($this->validator->fails($attributes)) {
             throw InvalidArticleAttributesException::create($this->validator->getErrors());
         }
+        $this->articleRepository->store($attributes);
     }
 
     /**
@@ -125,5 +129,14 @@ class ArticleImportService implements ArticleImportInterface
     private function removeHtmlSpaces(string $html) : string
     {
         return str_replace("\t", '', trim(strip_tags($html)));
+    }
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    private function generateUrlHash(string $url) : string
+    {
+        return sha1($url);
     }
 }
