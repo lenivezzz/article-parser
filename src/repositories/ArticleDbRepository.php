@@ -56,4 +56,12 @@ class ArticleDbRepository implements ArticleRepositoryInterface
 
         return $article;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function findAllByHashList(array $hashList) : Collection
+    {
+        return Article::query()->whereIn('hash', $hashList)->get();
+    }
 }

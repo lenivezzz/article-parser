@@ -25,4 +25,10 @@ interface ArticleRepositoryInterface
      * @return Article
      */
     public function findById(int $id) : Article;
+
+    /**
+     * @param array $hashList
+     * @return Collection
+     */
+    public function findAllByHashList(array $hashList) : Collection;
 }
