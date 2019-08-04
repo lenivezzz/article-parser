@@ -67,8 +67,7 @@ class ArticleImportService implements ArticleImportInterface
      */
     public function import() : void
     {
-        $urlList = $this->urlProvider->provideUrlList();
-        foreach ($urlList as $url) {
+        foreach ($this->loadUrlList() as $url) {
             $this->logMessages[] = sprintf('%sProcessing %s', PHP_EOL, $url);
             try {
                 $this->importArticleFromUrl($url);
@@ -138,5 +137,34 @@ class ArticleImportService implements ArticleImportInterface
     private function generateUrlHash(string $url) : string
     {
         return sha1($url);
+    }
+
+    /**
+     * @return array
+     */
+    private function loadUrlList() : array
+    {
+        $urlList = $this->urlProvider->provideUrlList();
+        $this->removeProcessedUrls($urlList);
+        return $urlList;
+    }
+
+    /**
+     * @param array $urlList
+     * @return void
+     */
+    private function removeProcessedUrls(array &$urlList) : void
+    {
+        $hashUrlList = [];
+        foreach ($urlList as $url) {
+            $hashUrlList[$this->generateUrlHash($url)] = $url;
+        }
+
+        $articleList = $this->articleRepository->findAllByHashList(array_keys($hashUrlList));
+        foreach ($articleList->all() as $article) {
+            unset($hashUrlList[$article->hash]);
+        }
+
+        $urlList = array_intersect($hashUrlList, $urlList);
     }
 }
