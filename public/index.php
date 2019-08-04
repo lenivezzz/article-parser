@@ -5,7 +5,7 @@ use php_part\repositories\ArticleDbRepository;
 
 require __DIR__ . '/../bootstrap.php';
 
-$articlesCollection = (new ArticleDbRepository())->findAll();
+$articlesCollection = (new ArticleDbRepository())->findAll(40);
 
 ?>
 

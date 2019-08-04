@@ -15,10 +15,11 @@ interface ArticleRepositoryInterface
     public function store(array $attributes) : int;
 
     /**
+     * @param int|null $limit
      * @param string $order
      * @return Collection
      */
-    public function findAll(string $order = 'desc') : Collection;
+    public function findAll(?int $limit = null, string $order = 'desc') : Collection;
 
     /**
      * @param int $id
