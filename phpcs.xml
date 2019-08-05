@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Custom-PSR2">
+    <description>Coding standard based on PSR2</description>
+
+    <rule ref="PSR2" />
+    <file>src/</file>
+    <file>tests/</file>
+
+    <arg name="extensions" value="php" />
+    <arg name="encoding" value="UTF-8" />
+</ruleset>

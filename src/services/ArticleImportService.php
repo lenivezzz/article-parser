@@ -71,8 +71,7 @@ class ArticleImportService implements ArticleImportInterface
             $this->addLogMessage(sprintf('%sProcessing %s', PHP_EOL, $url));
             try {
                 $this->importArticleFromUrl($url);
-            } catch (
-                ParserFactoryException
+            } catch (ParserFactoryException
                 | NodeNotFoundException
                 | RepositoryException
                 | InvalidArticleAttributesException $e

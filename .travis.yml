@@ -17,4 +17,5 @@ before_script:
   - cp phpunit.sample.xml phpunit.xml
 
 script:
+  - ./vendor/bin/phpcs
   - ./vendor/bin/phpunit
