@@ -30,7 +30,7 @@ class WebResourceSourceProvider implements WebResourceSourceProviderInterface
         try {
             $response = $this->client->request('get', $url);
         } catch (GuzzleException $e) {
-            throw new WebPageSourceProviderException($e->getMessage(), null, $e);
+            throw new WebPageSourceProviderException($e->getMessage(), 0, $e);
         }
 
         $statusCode = $response->getStatusCode();

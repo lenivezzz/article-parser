@@ -7,6 +7,7 @@ use php_part\exceptions\InvalidArticleAttributesException;
 use php_part\exceptions\NodeNotFoundException;
 use php_part\exceptions\ParserFactoryException;
 use php_part\exceptions\RepositoryException;
+use php_part\exceptions\WebPageSourceProviderException;
 use php_part\resources\ArticlePageParserFactoryInterface;
 use php_part\repositories\ArticleRepositoryInterface;
 use php_part\sourceproviders\WebResourceSourceProviderInterface;
@@ -71,7 +72,8 @@ class ArticleImportService implements ArticleImportInterface
             $this->addLogMessage(sprintf('%sProcessing %s', PHP_EOL, $url));
             try {
                 $this->importArticleFromUrl($url);
-            } catch (ParserFactoryException
+            } catch (WebPageSourceProviderException
+                | ParserFactoryException
                 | NodeNotFoundException
                 | RepositoryException
                 | InvalidArticleAttributesException $e
