@@ -2,8 +2,7 @@ language: php
 dist: xenial
 
 php:
-  - 7.2
-  - 7.3
+  - 8.0
 
 before_install:
   - sudo apt-get update
