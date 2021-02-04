@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+  percona:
+    image: percona:latest
+    restart: always
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - percona-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: php_part
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  php:
+    image: web_php
+    build:
+      context: .
+      dockerfile: ./provision/php/Dockerfile
+    volumes:
+      - ./:/application
+    depends_on:
+      - percona
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public:/application/public
+      - ./provision/nginx/config/site.conf:/etc/nginx/conf.d/site.conf
+    depends_on:
+      - php
+
+volumes:
+  percona-data:
