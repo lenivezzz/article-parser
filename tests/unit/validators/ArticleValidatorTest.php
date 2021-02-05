@@ -14,7 +14,7 @@ class ArticleValidatorTest extends DbTestCase
     public function testFails() : void
     {
         $validator = new ArticleValidator(Validation::createValidator());
-        $this->assertTrue($validator->fails([]));
+        self::assertTrue($validator->fails([]));
 
         $attributes = [
             'title' => Factory::create()->words(5, true),
@@ -24,21 +24,21 @@ class ArticleValidatorTest extends DbTestCase
             'hash' => Factory::create()->unique()->sha1,
         ];
 
-        $this->assertFalse($validator->fails($attributes));
+        self::assertFalse($validator->fails($attributes));
 
         $attributes['announce'] = str_repeat('a', 201);
-        $this->assertTrue($validator->fails($attributes));
+        self::assertTrue($validator->fails($attributes));
 
         $attributes['announce'] = str_repeat('a', 200);
-        $this->assertFalse($validator->fails($attributes));
+        self::assertFalse($validator->fails($attributes));
 
         $attributes['image_src'] = Factory::create()->word;
-        $this->assertTrue($validator->fails($attributes));
+        self::assertTrue($validator->fails($attributes));
 
         $attributes['image_src'] = Factory::create()->url;
-        $this->assertFalse($validator->fails($attributes));
+        self::assertFalse($validator->fails($attributes));
 
         Article::query()->create($attributes);
-        $this->assertTrue($validator->fails($attributes));
+        self::assertTrue($validator->fails($attributes));
     }
 }
