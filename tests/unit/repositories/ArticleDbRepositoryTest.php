@@ -24,7 +24,7 @@ class ArticleDbRepositoryTest extends DbTestCase
         ];
         $id = $repository->store($attributes);
         $article = Article::query()->findOrFail($id);
-        $this->assertEquals(array_values($attributes), [
+        self::assertEquals(array_values($attributes), [
             $article->title,
             $article->announce,
             $article->content,

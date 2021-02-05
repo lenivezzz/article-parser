@@ -39,7 +39,7 @@ class WebPageSourceProviderTest extends TestCase
         $client->method('request')->willReturn($response);
 
         $provider = new WebResourceSourceProvider($client);
-        $this->assertEquals($html, $provider->provide($url));
+        self::assertEquals($html, $provider->provide($url));
 
         $this->expectException(WebPageSourceProviderException::class);
         $this->expectExceptionMessage(
@@ -53,12 +53,15 @@ class WebPageSourceProviderTest extends TestCase
         /** @var RequestInterface|MockObject $request */
         $request = $this->getMockBuilder(RequestInterface::class)
             ->getMockForAbstractClass();
+        /** @var ResponseInterface|MockObject $response */
+        $response = $this->getMockBuilder(ResponseInterface::class)
+            ->getMockForAbstractClass();
         /** @var ClientInterface|MockObject $client */
         $client = $this->getMockBuilder(ClientInterface::class)
-            ->setMethods(['request'])
+            ->onlyMethods(['request'])
             ->getMockForAbstractClass();
         $client->method('request')
-            ->willThrowException(new ClientException('Failed to get resource', $request));
+            ->willThrowException(new ClientException('Failed to get resource', $request, $response));
 
         $provider = new WebResourceSourceProvider($client);
         $this->expectException(WebPageSourceProviderException::class);
