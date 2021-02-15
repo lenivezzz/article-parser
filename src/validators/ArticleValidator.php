@@ -9,11 +9,12 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface as SymfonyValidatorInterfaceAlias;
 
 class ArticleValidator implements ValidatorInterface
 {
     /**
-     * @var ValidatorInterface
+     * @var SymfonyValidatorInterfaceAlias
      */
     private $validator;
 
@@ -24,9 +25,9 @@ class ArticleValidator implements ValidatorInterface
 
     /**
      * ArticleValidator constructor.
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
+     * @param SymfonyValidatorInterfaceAlias $validator
      */
-    public function __construct(\Symfony\Component\Validator\Validator\ValidatorInterface $validator)
+    public function __construct(SymfonyValidatorInterfaceAlias $validator)
     {
         $this->validator = $validator;
     }

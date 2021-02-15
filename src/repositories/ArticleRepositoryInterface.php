@@ -17,9 +17,9 @@ interface ArticleRepositoryInterface
     /**
      * @param int|null $limit
      * @param string $order
-     * @return Collection
+     * @return Article[]
      */
-    public function findAll(?int $limit = null, string $order = 'desc') : Collection;
+    public function findAll(?int $limit = null, string $order = 'desc') : array;
 
     /**
      * @param int $id
@@ -29,7 +29,7 @@ interface ArticleRepositoryInterface
 
     /**
      * @param array $hashList
-     * @return Collection
+     * @return Article[]
      */
-    public function findAllByHashList(array $hashList) : Collection;
+    public function findAllByHashList(array $hashList) : array;
 }

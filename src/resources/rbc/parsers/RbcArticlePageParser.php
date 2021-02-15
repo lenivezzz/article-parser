@@ -34,6 +34,10 @@ class RbcArticlePageParser extends AbstractPageParser implements ArticlePagePars
     public function parsePublishedDateTime() : DateTime
     {
         $time = $this->findNode('.article__header__date')->attr('content');
+        if ($time === null) {
+            throw new UnexpectedContentException('Failed to define article time');
+        }
+
         try {
             return new DateTime($time);
         } catch (Throwable $e) {

@@ -5,7 +5,7 @@ use php_part\repositories\ArticleDbRepository;
 
 require __DIR__ . '/../bootstrap.php';
 
-$articlesCollection = (new ArticleDbRepository())->findAll(40);
+$articlesList = (new ArticleDbRepository())->findAll(40);
 
 ?>
 
@@ -34,9 +34,9 @@ $articlesCollection = (new ArticleDbRepository())->findAll(40);
 <body>
 <div class="container">
     <h1>Список статей</h1>
-    <?php foreach ($articlesCollection->chunk(3) as $collection) { ?>
+    <?php foreach (array_chunk($articlesList, 3) as $articleChunk) { ?>
         <div class="row">
-            <?php foreach ($collection->all() as $article) { ?>
+            <?php foreach ($articleChunk as $article) { ?>
                 <div class="col-md-4 d-flex">
                     <div class="card">
                         <?php $imageSrc = $article->image_src ?: 'https://dummyimage.com/1180x730/cfcfcf/808080.png&text=No+image'; ?>

@@ -170,7 +170,7 @@ class ArticleImportService implements ArticleImportInterface
         }
 
         $articleList = $this->articleRepository->findAllByHashList(array_keys($hashUrlList));
-        foreach ($articleList->all() as $article) {
+        foreach ($articleList as $article) {
             unset($hashUrlList[$article->hash]);
         }
 
