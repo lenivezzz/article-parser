@@ -15,6 +15,6 @@ class InvalidArticleAttributesException extends RuntimeException
      */
     public static function create(array $messageList, Throwable $previous = null) : InvalidArticleAttributesException
     {
-        return new static(implode(PHP_EOL, $messageList), 0, $previous);
+        return new self(implode(PHP_EOL, $messageList), 0, $previous);
     }
 }

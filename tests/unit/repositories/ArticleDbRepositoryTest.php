@@ -47,7 +47,7 @@ class ArticleDbRepositoryTest extends DbTestCase
         ]);
         $article->save();
         $articleList = (new ArticleDbRepository())->findAll();
-        $this->assertTrue($articleList->contains($article));
+        self::assertEquals($article->id, $articleList[0]->id);
 
         $lastArticle = new Article([
             'title' => Factory::create()->words(5, true),
@@ -59,9 +59,8 @@ class ArticleDbRepositoryTest extends DbTestCase
         $lastArticle->save();
 
         $articleList = (new ArticleDbRepository())->findAll(1);
-        $this->assertCount(1, $articleList);
-        $this->assertTrue($articleList->contains($lastArticle));
-        $this->assertFalse($articleList->contains($article));
+        self::assertCount(1, $articleList);
+        self::assertEquals($articleList[0]->id, $lastArticle->id);
     }
 
     public function testFindById() : void
@@ -76,12 +75,12 @@ class ArticleDbRepositoryTest extends DbTestCase
         ]);
         $article->save();
 
-        $this->assertEquals($title, (new ArticleDbRepository())->findById($article->id)->title);
+        self::assertEquals($title, (new ArticleDbRepository())->findById($article->id)->title);
     }
 
     public function testFindAllByHashList() : void
     {
-        $this->assertEquals([], (new ArticleDbRepository())->findAllByHashList([])->all());
+        self::assertEquals([], (new ArticleDbRepository())->findAllByHashList([]));
         $hash = str_repeat('z', 40);
         $article = new Article([
             'title' => Factory::create()->words(5, true),
@@ -92,6 +91,8 @@ class ArticleDbRepositoryTest extends DbTestCase
         ]);
         $article->save();
 
-        $this->assertEquals($hash, (new ArticleDbRepository())->findAllByHashList([$hash])->all()[0]->hash);
+        $articleList = (new ArticleDbRepository())->findAllByHashList([$hash]);
+        self::assertCount(1, $articleList);
+        self::assertEquals($hash, $articleList[0]->hash);
     }
 }

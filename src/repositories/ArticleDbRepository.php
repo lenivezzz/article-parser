@@ -37,11 +37,11 @@ class ArticleDbRepository implements ArticleRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function findAll(?int $limit = null, string $order = 'desc') : Collection
+    public function findAll(?int $limit = null, string $order = 'desc') : array
     {
         $builder = Article::query()->orderBy('id', $order);
         $limit !== null && $builder->limit($limit);
-        return $builder->get();
+        return $builder->get()->all();
     }
 
     /**
@@ -62,8 +62,8 @@ class ArticleDbRepository implements ArticleRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function findAllByHashList(array $hashList) : Collection
+    public function findAllByHashList(array $hashList) : array
     {
-        return Article::query()->whereIn('hash', $hashList)->get();
+        return Article::query()->whereIn('hash', $hashList)->get()->all();
     }
 }
